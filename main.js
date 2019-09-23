@@ -28,8 +28,27 @@ function fetchWeatherAndUpdateUi(usZipCode) {
       return response.json();
     })
     .then((response) => {
-      console.log(response);
+      console.log("!!!")
+      updateWeatherDisplay(response);
     });
+}
+
+function updateWeatherDisplay(response){
+document.querySelector("#city").innerHTML = response.name;
+document.querySelector("#currentTemp").innerHTML = response.main.temp;
+document.querySelector("#weatherDesc").innerHTML = response.weather[0].description;
+document.querySelector("#max").innerHTML = response.main.temp_max;
+document.querySelector("#min").innerHTML = response.main.temp_min;
+if (response.main.temp < 40){
+    document.querySelector("#currentTemp").style.color = "blue";
+}
+
+else if(response.main.temp > 90){
+  document.querySelector("#currentTemp").style.color = "red";
+}
+
+else 
+document.querySelector("#currentTemp").style.color = "black";
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {
